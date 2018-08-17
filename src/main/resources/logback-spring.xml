@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%-30(%d{yyyy-MM-dd HH:mm:ss} %X{requestId}) [%thread] %-5level %logger{36} - %msg  %M%n 
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FileAppender" class="ch.qos.logback.core.FileAppender">
+		<file>test.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} %X{requestId} [%thread] %-5level %logger{36} - %msg %M%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+
+	<springProfile name="dev">
+		<root level="info">
+			<appender-ref ref="ConsoleAppender" />
+			<appender-ref ref="FileAppender" />
+		</root>
+	</springProfile>
+	<springProfile name="prod">
+		<root level="info">
+			<appender-ref ref="FileAppender" />
+		</root>
+	</springProfile>
+</configuration>
